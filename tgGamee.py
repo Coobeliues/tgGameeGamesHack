@@ -1,4 +1,4 @@
-
+# solitaire
 import requests
 import hashlib
 
@@ -13,19 +13,28 @@ def get_checksum(score, play_time, url):
     return checksum
 
 # Новое значение счета
-new_score = 108563
+new_score = 6770
 
 # Время игры
-play_time = 11
+play_time = 28
 
 # URL игры
-game_url = "/game-bot/neonracer-c94fc835c451e29841b94038b06a03295bd80cdc"
+game_url = "/game-bot/piratesolitaire-907619a3b17c0670857535dbac4dc41b55b0256a"
+           
 
 # Генерация контрольной суммы
 checksum = get_checksum(new_score, play_time, game_url)
 
 # URL эндпоинта API
 api_endpoint = "https://api.service.gameeapp.com/"
+
+# Токен доступа
+access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOiIxNzA5ODAzNTg1IiwidXNlcklkIjoyMTYwMTk0MSwiaW5zdGFsbFV1aWQiOiJkNzlmNTFjOS1jOGNmLTQxMjctYjBiMi0yMzVjZTNiMzRmMjAiLCJ0eXBlIjoiYXV0aGVudGljYXRpb25Ub2tlbiIsImF1dGhvcml6YXRpb25MZXZlbCI6ImJvdCIsInBsYXRmb3JtIjoiYm90LXRlbGVncmFtIn0.OJDPKjDao9Q4YmId24CP_0chqte3FzmRAq2dPnc7kdQ'"
+
+# Заголовок авторизации
+headers = {
+    "Authorization": f"Bearer {access_token}"
+}
 
 # Запрос на изменение счета
 response = requests.post(api_endpoint, json={
@@ -35,22 +44,20 @@ response = requests.post(api_endpoint, json={
     "params": {
         "gameplayData": {
             "checksum": checksum,
-            "createdTime": "2024-03-06T23:52:30+06:00",
-            "gameId": 287,
+            "createdTime": "2024-03-07T14:27:04+06:00",
+            "gameId": 269,
             "gameplayOrigin": "game",
             "gameStateData": None,
             "gameUrl": game_url,
             "isSaveState": False,
-            "metadata": {"gameplayId": 18},
+            "metadata": {"gameplayId": 20},
             "playTime": play_time,
-            "releaseNumber": 3,
+            "releaseNumber": 2,
             "replayData": None,
             "replayDataChecksum": None,
             "replayVariant": None,
-            "score": new_score
-        }
-    }
-})
+            "score": new_score}}},    headers = headers  # Подставляем заголовок авторизации
+)
 
 # Вывод результата запроса
 print(response.text)
